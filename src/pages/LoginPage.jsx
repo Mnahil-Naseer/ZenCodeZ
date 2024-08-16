@@ -23,8 +23,8 @@ function LoginPage({ setIsLoggedIn }) {
   };
 
   return (
-    <div className="min-h-screen bg-slate-200 flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8">
-      <div className="bg-white w-full max-w-md px-8 py-10 rounded shadow-md">
+    <div className="min-h-screen bg-gradient-to-tr from-cyan-800 via-cyan-600 to-blue-950 mt-10 flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8">
+      <div className="bg-blue-100 w-full max-w-md px-8 py-10 rounded shadow-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
         <form onSubmit={handleLogin}>
           <div className="mb-4">

@@ -48,7 +48,7 @@ function ContactForm() {
       >
         <div className="absolute inset-0 bg-black opacity-30"></div>
         <div className="relative z-10 text-white p-8 flex items-center h-full">
-          <div className="w-full max-w-md mx-auto text-center md:text-left">
+          <div className="w-full max-w-md mx-5 text-left md:text-left">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               How may <span className="text-cyan-500">We help You?</span>
             </h1>

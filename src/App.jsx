@@ -18,7 +18,7 @@ function App() {
       <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path='/profile' element={<ProfilePage/>}/>
+        <Route path='/profile' element={<ProfilePage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}/>
         <Route path="/contact" element={<ContactUsPage />} />
         <Route path="/why-choose-us" element={<WhyChooseUsPage />} />
         <Route path="/services/:servicesId" element={<ServiceDetailPage />} />

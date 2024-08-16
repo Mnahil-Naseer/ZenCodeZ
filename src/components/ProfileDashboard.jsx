@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { FaEdit, FaTrash, FaMapMarkerAlt, FaEnvelope, FaPhone, FaUser } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { FaEdit, FaTrash, FaMapMarkerAlt, FaEnvelope, FaPhone, FaUser, FaSignOutAlt } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom'; // Import useHistory for navigation
 import profile from '../img/icons8-male-user-50.png';
 
 const initialUserActivity = [
@@ -9,7 +9,7 @@ const initialUserActivity = [
   "Logged in on 2024-07-29"
 ];
 
-const ProfileDashboard = ({ onEditProfile }) => {
+const ProfileDashboard = () => {
   const [userActivity, setUserActivity] = useState(initialUserActivity);
   const [submissions, setSubmissions] = useState([]);
   const [userInfo, setUserInfo] = useState({
@@ -17,12 +17,11 @@ const ProfileDashboard = ({ onEditProfile }) => {
     address: '',
     email: '',
     phone: '',
-    profilePicture: ''
+    profilePicture: profile
   });
   const [newProject, setNewProject] = useState({ title: "", description: "", date: "" });
-  const navigate = useNavigate();
-
-  const handleUpdateProfileRef = useRef(null);
+  const [isEditingProfile, setIsEditingProfile] = useState(false); // State to toggle edit mode
+  const navigate = useNavigate(); // Initialize useHistory for navigation
 
   useEffect(() => {
     const savedUserInfo = JSON.parse(localStorage.getItem('userInfo'));
@@ -37,7 +36,7 @@ const ProfileDashboard = ({ onEditProfile }) => {
   const handleLogin = () => {
     const currentDate = new Date().toISOString().split('T')[0];
     const newActivity = `Logged in on ${currentDate}`;
-    setUserActivity([newActivity, ...userActivity]);
+    setUserActivity((prev) => [newActivity, ...prev]);
   };
 
   const handleProjectSubmit = () => {
@@ -70,12 +69,21 @@ const ProfileDashboard = ({ onEditProfile }) => {
   const handleUpdateProfile = (updatedInfo) => {
     setUserInfo(updatedInfo);
     localStorage.setItem('userInfo', JSON.stringify(updatedInfo));
+    setIsEditingProfile(false); // Exit edit mode after saving
   };
-  
-  handleUpdateProfileRef.current = handleUpdateProfile;
 
   const handleEditProfileClick = () => {
-    onEditProfile(); // Trigger parent component's edit profile mode
+    setIsEditingProfile(true); // Enter edit mode
+  };
+
+  const handleProfileChange = (e) => {
+    const { name, value } = e.target;
+    setUserInfo((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleProfileSubmit = (e) => {
+    e.preventDefault();
+    handleUpdateProfile(userInfo); // Save the updated profile data
   };
 
   return (
@@ -83,7 +91,7 @@ const ProfileDashboard = ({ onEditProfile }) => {
       <div className="text-black p-4 md:p-6 rounded-lg shadow-lg">
         <div className="flex flex-col md:flex-row items-center mb-6">
           <img 
-            src={profile} 
+            src={userInfo.profilePicture || profile} 
             alt="Profile" 
             className="w-20 h-20 md:w-24 md:h-24 rounded-full mr-0 md:mr-4 mb-4 md:mb-0"
           />
@@ -93,101 +101,161 @@ const ProfileDashboard = ({ onEditProfile }) => {
         </div>
 
         {/* User Information Section */}
-        <div className="mb-6 p-4 md:p-6 bg-white rounded-lg shadow-lg text-black">
-          <h3 className="text-xl md:text-2xl font-semibold mb-4">Your Information</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-10">
-            <div className="p-4 h-auto bg-gray-400 rounded-lg flex items-center">
-              <FaUser className="text-cyan-800 mr-3" />
-              <div>
-                <p><strong>Name:</strong> {userInfo.name}</p>
+        {!isEditingProfile ? (
+          <div id="info" className="mb-6 p-4 md:p-6 bg-white rounded-lg shadow-lg text-black">
+            <h3 className="text-xl md:text-2xl font-semibold mb-4">Your Information</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-10">
+              <div className="p-4 h-auto bg-gray-400 rounded-lg flex items-center">
+                <FaUser className="text-cyan-800 mr-3" />
+                <div>
+                  <p><strong>Name:</strong> {userInfo.name}</p>
+                </div>
+              </div>
+              <div className="p-4 h-auto bg-gray-400 rounded-lg flex items-center">
+                <FaMapMarkerAlt className="text-cyan-800 mr-3" />
+                <div>
+                  <p><strong>Address:</strong> {userInfo.address}</p>
+                </div>
+              </div>
+              <div className="p-4 h-auto bg-gray-400 rounded-lg flex items-center">
+                <FaEnvelope className="text-cyan-800 mr-3" />
+                <div>
+                  <p><strong>Email:</strong> {userInfo.email}</p>
+                </div>
+              </div>
+              <div className="p-4 h-auto bg-gray-400 rounded-lg flex items-center">
+                <FaPhone className="text-cyan-800 mr-3" />
+                <div>
+                  <p><strong>Phone:</strong> {userInfo.phone}</p>
+                </div>
               </div>
             </div>
-            <div className="p-4 h-auto bg-gray-400 rounded-lg flex items-center">
-              <FaMapMarkerAlt className="text-cyan-800 mr-3" />
-              <div>
-                <p><strong>Address:</strong> {userInfo.address}</p>
-              </div>
-            </div>
-            <div className="p-4 h-auto bg-gray-400 rounded-lg flex items-center">
-              <FaEnvelope className="text-cyan-800 mr-3" />
-              <div>
-                <p><strong>Email:</strong> {userInfo.email}</p>
-              </div>
-            </div>
-            <div className="p-4 h-auto bg-gray-400 rounded-lg flex items-center">
-              <FaPhone className="text-cyan-800 mr-3" />
-              <div>
-                <p><strong>Phone:</strong> {userInfo.phone}</p>
-              </div>
+            <div className="flex justify-between mt-6">
+              <button 
+                onClick={handleEditProfileClick}
+                className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+              >
+                Edit Your Profile
+              </button>
             </div>
           </div>
-          <button 
-            onClick={handleEditProfileClick}
-            className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 mt-6"
-          >
-            Edit Your Profile
-          </button>
-        </div>
+        ) : (
+          // Profile Edit Form Section
+          <div className="mb-6">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">Edit Your Profile</h2>
+            <form onSubmit={handleProfileSubmit} className="bg-white p-4 rounded-lg shadow-lg">
+              <div className="mb-4">
+                <label htmlFor="name" className="block text-gray-700 mb-2">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={userInfo.name}
+                  onChange={handleProfileChange}
+                  className="w-full p-2 border border-gray-300 rounded"
+                />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="address" className="block text-gray-700 mb-2">Address</label>
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  value={userInfo.address}
+                  onChange={handleProfileChange}
+                  className="w-full p-2 border border-gray-300 rounded"
+                />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="email" className="block text-gray-700 mb-2">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={userInfo.email}
+                  onChange={handleProfileChange}
+                  className="w-full p-2 border border-gray-300 rounded"
+                />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="phone" className="block text-gray-700 mb-2">Phone</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  value={userInfo.phone}
+                  onChange={handleProfileChange}
+                  className="w-full p-2 border border-gray-300 rounded"
+                />
+              </div>
+              <button 
+                type="submit"
+                className="bg-cyan-700 text-white py-2 px-4 rounded hover:bg-cyan-900"
+              >
+                Save Changes
+              </button>
+            </form>
+          </div>
+        )}
       </div>
 
-      {/* User Activity Section */}
-      <div className="mb-6">
-        <h3 className="text-lg md:text-xl font-semibold mb-2">Your Recent Activity</h3>
-        <ul className="list-disc list-inside">
+      {/* Recent User Activity Section */}
+      <div id="recent-activity" className="p-4 md:p-6 bg-white rounded-lg shadow-lg text-black mb-6">
+        <h3 className="text-xl md:text-2xl font-semibold mb-4">Recent User Activity</h3>
+        <ul className="list-disc pl-6">
           {userActivity.map((activity, index) => (
-            <li key={index} className="mb-2">{activity}</li>
+            <li key={index}>{activity}</li>
           ))}
         </ul>
       </div>
 
-      {/* User Submissions Section */}
-      <div className="mb-6">
-        <h3 className="text-lg md:text-xl font-semibold mb-2">Your Submissions</h3>
-        {submissions.map((submission, index) => (
-          <div key={index} className="mb-4 p-4 border border-gray-300 rounded-lg shadow-lg">
-            <div className="flex justify-between items-center">
+      {/* Recent Submissions Section */}
+      <div id="recent-submissions" className="p-4 md:p-6 bg-white rounded-lg shadow-lg text-black mb-6">
+        <h3 className="text-xl md:text-2xl font-semibold mb-4">Recent Submissions</h3>
+        <ul className="space-y-4">
+          {submissions.map((submission, index) => (
+            <li key={index} className="p-4 bg-gray-100 rounded-lg flex justify-between items-center">
               <div>
-                <h4 className="text-md md:text-lg font-semibold">{submission.title}</h4>
-                <p className="text-gray-700">{submission.description}</p>
-                <p className="text-gray-500 text-sm">{submission.date}</p>
+                <h4 className="font-semibold">{submission.title}</h4>
+                <p>{submission.description}</p>
+                <p className="text-gray-600 text-sm">Submitted on: {submission.date}</p>
               </div>
-              <div className="flex space-x-2">
+              <div className="flex space-x-4">
                 <button 
                   onClick={() => handleEditSubmission(index)}
-                  className="text-blue-600 hover:underline"
+                  className="text-blue-600 hover:text-blue-800"
                 >
                   <FaEdit />
                 </button>
                 <button 
                   onClick={() => handleDeleteSubmission(index)}
-                  className="text-red-600 hover:underline"
+                  className="text-red-600 hover:text-red-800"
                 >
                   <FaTrash />
                 </button>
               </div>
-            </div>
-          </div>
-        ))}
-        <div className="p-4 bg-white rounded-lg shadow-lg text-black">
-          <h3 className="text-lg md:text-xl font-semibold mb-2">Submit New Project</h3>
-          <input
-            type="text"
-            placeholder="Project Title"
-            value={newProject.title}
-            onChange={(e) => setNewProject({ ...newProject, title: e.target.value })}
-            className="border p-2 w-full mb-2 rounded"
+            </li>
+          ))}
+        </ul>
+        <div className="mt-6">
+          <input 
+            type="text" 
+            value={newProject.title} 
+            onChange={(e) => setNewProject({ ...newProject, title: e.target.value })} 
+            placeholder="Project Title" 
+            className="p-2 border border-gray-300 rounded w-full mb-2"
           />
-          <textarea
-            placeholder="Project Description"
-            value={newProject.description}
-            onChange={(e) => setNewProject({ ...newProject, description: e.target.value })}
-            className="border p-2 w-full mb-2 rounded"
-          />
+          <textarea 
+            value={newProject.description} 
+            onChange={(e) => setNewProject({ ...newProject, description: e.target.value })} 
+            placeholder="Project Description" 
+            className="p-2 border border-gray-300 rounded w-full mb-2"
+          ></textarea>
           <button 
-            onClick={handleProjectSubmit}
-            className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+            onClick={handleProjectSubmit} 
+            className="bg-cyan-700 text-white py-2 px-4 rounded hover:bg-cyan-900"
           >
-            Submit
+            Submit Project
           </button>
         </div>
       </div>
