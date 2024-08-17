@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function SignupPage({ setIsLoggedIn }) {
   const [formData, setFormData] = useState({
@@ -95,7 +95,7 @@ function SignupPage({ setIsLoggedIn }) {
           </button>
         </form>
         <div className="text-center mt-6">
-          <p className="text-gray-700">Already have an account? <a href="/login" className="text-blue-600 hover:underline">Login</a></p>
+          <p className="text-gray-700">Already have an account? <Link to="/login" className="text-blue-600 hover:underline">Login</Link></p>
         </div>
       </div>
     </div>
