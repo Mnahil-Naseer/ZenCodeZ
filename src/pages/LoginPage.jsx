@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function LoginPage({ setIsLoggedIn }) {
   const [formData, setFormData] = useState({
@@ -19,7 +19,7 @@ function LoginPage({ setIsLoggedIn }) {
   const handleLogin = (e) => {
     e.preventDefault();
     const user = JSON.parse(localStorage.getItem('user'));
-    
+
     if (user && user.username === formData.username && user.password === formData.password) {
       setIsLoggedIn(true);
       navigate('/'); // Redirect to main page
@@ -72,7 +72,7 @@ function LoginPage({ setIsLoggedIn }) {
           </button>
         </form>
         <div className="text-center mt-6">
-          <p className="text-gray-700">Not registered yet? <a href="/signup" className="text-blue-600 hover:underline">Create new Account</a></p>
+          <p className="text-gray-700">Not registered yet? <Link to="/signup" className="text-blue-600 hover:underline">Create new Account</Link></p>
         </div>
       </div>
     </div>
