@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import bg from '../img/services2.jpg';
@@ -14,6 +13,7 @@ import ux1 from '../img/ux1.jpg';
 import ux2 from '../img/ux2.jpg';
 import vedio1 from '../img/vedio1.jpg';
 import vedio2 from '../img/vedio2.jpg';
+
 const services = [
   {
     id:'web-development',
@@ -119,19 +119,20 @@ const services = [
     ]
   }
 ];
+
 function MainBanner() {
   return (
     <section
-      className="relative bg-cover bg-center h-screen flex items-center"
-      style={{  backgroundImage: `url(${bg})`}}
+      className="relative bg-cover bg-center h-80 md:h-screen flex items-center"
+      style={{ backgroundImage: `url(${bg})` }}
     >
       <div className="absolute inset-0 bg-black opacity-70"></div>
-      <div className="relative z-10 text-white p-8 md:p-16 flex items-start">
+      <div className="relative z-10 text-white p-6 md:p-16 flex items-start">
         <div>
-          <h1 className="text-4xl md:text-6xl font-bold mt-8 leading-tight">
+          <h1 className="text-3xl md:text-6xl font-bold leading-tight">
             Innovation Delivered, Excellence Achieved
           </h1>
-          <p className="mt-4 text-lg md:text-2xl font-light leading-relaxed">
+          <p className="mt-4 text-base md:text-2xl font-light leading-relaxed">
             Empowering your business with cutting-edge solutions that drive success and exceed expectations.
           </p>
         </div>
@@ -139,6 +140,7 @@ function MainBanner() {
     </section>
   );
 }
+
 function ServicesDetails() {
   const [activeIndex, setActiveIndex] = useState(null);
   const location = useLocation();
@@ -163,37 +165,37 @@ function ServicesDetails() {
   return (
     <div>
       <MainBanner />
-      <section className="bg-gray-100 py-16 px-4">
+      <section className="bg-gray-100 py-8 md:py-16 px-4">
         <div className="container mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center text-cyan-700">Our Services</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-12 text-center text-cyan-700">Our Services</h2>
           {services.map((service, index) => (
             <div
               key={index}
               ref={(el) => serviceRefs.current[index] = el}
               id={service.id}
-              className="bg-white p-6 rounded shadow-md mb-8 hover:bg-gradient-to-tr from-cyan-950 via-cyan-700 to-blue-950 hover:text-white"
+              className="bg-white p-4 md:p-6 rounded shadow-md mb-6 md:mb-8 hover:bg-gradient-to-tr from-cyan-950 via-cyan-700 to-blue-950 hover:text-white"
             >
               <div className="flex justify-between items-center cursor-pointer" onClick={() => toggleAccordion(index)}>
-                <h3 className="text-2xl font-semibold mb-4">{service.title}</h3>
-                <span className='text-2xl hover:text-3xl'>{activeIndex === index ? '✖' : '➕'}</span>
+                <h3 className="text-lg md:text-2xl font-semibold mb-4">{service.title}</h3>
+                <span className='text-xl md:text-2xl hover:text-3xl'>{activeIndex === index ? '✖' : '➕'}</span>
               </div>
               {activeIndex === index && (
                 <>
                   <p className="text-inherit mb-4">{service.description}</p>
-                  <div className="grid md:grid-cols-2 gap-8">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-8">
                     {service.projects.map((project, idx) => (
                       <div key={idx} className="mb-4">
                         <img
                           src={project.image}
                           alt={project.name}
-                          className="w-full h-48 object-cover rounded mb-2 transform hover:scale-105 transition-transform duration-300"
+                          className="w-full h-40 md:h-48 object-cover rounded mb-2 transform hover:scale-105 transition-transform duration-300"
                         />
-                        <h5 className="text-lg font-semibold">{project.name}</h5>
-                        <p className="text-inherit w-96">{project.description}</p>
+                        <h5 className="text-base md:text-lg font-semibold">{project.name}</h5>
+                        <p className="text-inherit">{project.description}</p>
                       </div>
                     ))}
                   </div>
-                  <div className="mt-4 mr-28 text-center">
+                  <div className="mt-4 text-center">
                     <a href="/contact" className="text-inherit py-2 px-4 rounded shadow hover:shadow-inner hover:bg-gradient-to-tr from-cyan-600 to-blue-900 transition-colors duration-300">
                       Contact Us
                     </a>
