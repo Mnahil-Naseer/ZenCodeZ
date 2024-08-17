@@ -1,5 +1,6 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import bg from '../img/services2.jpg';
 import project1 from '../img/e-commerce.jpg';
 import project2 from '../img/corporate.jpg';
@@ -15,6 +16,7 @@ import vedio1 from '../img/vedio1.jpg';
 import vedio2 from '../img/vedio2.jpg';
 const services = [
   {
+    id:'web-development',
     title: "Web Development",
     description: "We build responsive and high-performance websites tailored to your business needs. Our expertise includes front-end and back-end development, ensuring a seamless user experience.",
     projects: [
@@ -31,6 +33,7 @@ const services = [
     ]
   },
   {
+    id:'mobile-development',
     title: "Mobile Development",
     description: "We develop native and cross-platform mobile applications that offer a smooth user experience and integrate well with various devices and operating systems.",
     projects: [
@@ -48,6 +51,7 @@ const services = [
     ]
   },
   {
+    id:'data-analysis',
     title: "Data Analysis",
     description: "We provide comprehensive data analysis services to help you make informed business decisions. Our expertise includes data visualization, statistical analysis, and predictive modeling.",
     projects: [
@@ -64,6 +68,7 @@ const services = [
     ]
   },
   {
+    id:'graphics-design',
     title: "Graphics Design",
     description: "Our graphic design services cover everything from logo creation to marketing materials. We focus on delivering visually appealing designs that effectively communicate your brand message.",
     projects: [
@@ -80,6 +85,7 @@ const services = [
     ]
   },
   {
+    id:'ui-ux-design',
     title: "UI/UX Design",
     description: "We specialize in creating user-centered designs that enhance usability and provide an intuitive user experience. Our services include user research, wireframing, and prototyping.",
     projects: [
@@ -96,6 +102,7 @@ const services = [
     ]
   },
   {
+    id:'video-animation',
     title: "Video Animation",
     description: "Our video animation services include creating engaging animations for various purposes, such as explainer videos, product demos, and promotional content.",
     projects: [
@@ -112,14 +119,11 @@ const services = [
     ]
   }
 ];
-
 function MainBanner() {
   return (
     <section
       className="relative bg-cover bg-center h-screen flex items-center"
-      style={{
-        backgroundImage: `url('${bg}')`,
-      }}
+      style={{  backgroundImage: `url(${bg})`}}
     >
       <div className="absolute inset-0 bg-black opacity-70"></div>
       <div className="relative z-10 text-white p-8 md:p-16 flex items-start">
@@ -137,6 +141,20 @@ function MainBanner() {
 }
 function ServicesDetails() {
   const [activeIndex, setActiveIndex] = useState(null);
+  const location = useLocation();
+  const serviceRefs = useRef([]);
+
+  useEffect(() => {
+    if (location.hash) {
+      const serviceId = location.hash.substring(1); // Remove the '#' from the hash
+      const serviceIndex = services.findIndex(service => service.id === serviceId);
+
+      if (serviceIndex !== -1) {
+        setActiveIndex(serviceIndex);
+        serviceRefs.current[serviceIndex]?.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [location]);
 
   const toggleAccordion = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
@@ -146,10 +164,15 @@ function ServicesDetails() {
     <div>
       <MainBanner />
       <section className="bg-gray-100 py-16 px-4">
-        <div className="container mx-auto  ">
-          <h2 className="text-3xl font-bold mb-12 text-center text-cyan-700 ">Our Services</h2>
+        <div className="container mx-auto">
+          <h2 className="text-3xl font-bold mb-12 text-center text-cyan-700">Our Services</h2>
           {services.map((service, index) => (
-            <div key={index} className="bg-white p-6 rounded shadow-md mb-8 hover:bg-gradient-to-tr from-cyan-950 via-cyan-700 to-blue-950 hover:text-white">
+            <div
+              key={index}
+              ref={(el) => serviceRefs.current[index] = el}
+              id={service.id}
+              className="bg-white p-6 rounded shadow-md mb-8 hover:bg-gradient-to-tr from-cyan-950 via-cyan-700 to-blue-950 hover:text-white"
+            >
               <div className="flex justify-between items-center cursor-pointer" onClick={() => toggleAccordion(index)}>
                 <h3 className="text-2xl font-semibold mb-4">{service.title}</h3>
                 <span className='text-2xl hover:text-3xl'>{activeIndex === index ? '✖' : '➕'}</span>
@@ -163,7 +186,7 @@ function ServicesDetails() {
                         <img
                           src={project.image}
                           alt={project.name}
-                          className="w-5/5 h-48 object-cover rounded mb-2 transform hover:scale-105 transition-transform duration-300"
+                          className="w-full h-48 object-cover rounded mb-2 transform hover:scale-105 transition-transform duration-300"
                         />
                         <h5 className="text-lg font-semibold">{project.name}</h5>
                         <p className="text-inherit w-96">{project.description}</p>
@@ -171,7 +194,7 @@ function ServicesDetails() {
                     ))}
                   </div>
                   <div className="mt-4 mr-28 text-center">
-                    <a href="/contact" className=" text-inherit py-2 px-4 rounded shadow hover:shadow-inner hover:bg-gradient-to-tr from-cyan-600 to-blue-900 transition-colors duration-300">
+                    <a href="/contact" className="text-inherit py-2 px-4 rounded shadow hover:shadow-inner hover:bg-gradient-to-tr from-cyan-600 to-blue-900 transition-colors duration-300">
                       Contact Us
                     </a>
                   </div>
@@ -185,4 +208,4 @@ function ServicesDetails() {
   );
 }
 
-export default ServicesDetails; 
+export default ServicesDetails;
