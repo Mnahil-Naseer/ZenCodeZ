@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import bg from '../img/services2.jpg';
 import project1 from '../img/e-commerce.jpg';
@@ -16,7 +17,7 @@ import vedio2 from '../img/vedio2.jpg';
 
 const services = [
   {
-    id:'web-development',
+    id: 'web-development',
     title: "Web Development",
     description: "We build responsive and high-performance websites tailored to your business needs. Our expertise includes front-end and back-end development, ensuring a seamless user experience.",
     projects: [
@@ -33,7 +34,7 @@ const services = [
     ]
   },
   {
-    id:'mobile-development',
+    id: 'mobile-development',
     title: "Mobile Development",
     description: "We develop native and cross-platform mobile applications that offer a smooth user experience and integrate well with various devices and operating systems.",
     projects: [
@@ -47,11 +48,11 @@ const services = [
         description: "A mobile app that helps users plan their travels with features such as itinerary creation, location suggestions, and booking integrations.",
         image: app2
       }
-      
+
     ]
   },
   {
-    id:'data-analysis',
+    id: 'data-analysis',
     title: "Data Analysis",
     description: "We provide comprehensive data analysis services to help you make informed business decisions. Our expertise includes data visualization, statistical analysis, and predictive modeling.",
     projects: [
@@ -68,7 +69,7 @@ const services = [
     ]
   },
   {
-    id:'graphics-design',
+    id: 'graphics-design',
     title: "Graphics Design",
     description: "Our graphic design services cover everything from logo creation to marketing materials. We focus on delivering visually appealing designs that effectively communicate your brand message.",
     projects: [
@@ -85,7 +86,7 @@ const services = [
     ]
   },
   {
-    id:'ui-ux-design',
+    id: 'ui-ux-design',
     title: "UI/UX Design",
     description: "We specialize in creating user-centered designs that enhance usability and provide an intuitive user experience. Our services include user research, wireframing, and prototyping.",
     projects: [
@@ -102,7 +103,7 @@ const services = [
     ]
   },
   {
-    id:'video-animation',
+    id: 'video-animation',
     title: "Video Animation",
     description: "Our video animation services include creating engaging animations for various purposes, such as explainer videos, product demos, and promotional content.",
     projects: [
@@ -196,9 +197,11 @@ function ServicesDetails() {
                     ))}
                   </div>
                   <div className="mt-4 text-center">
-                    <a href="/contact" className="text-inherit py-2 px-4 rounded shadow hover:shadow-inner hover:bg-gradient-to-tr from-cyan-600 to-blue-900 transition-colors duration-300">
-                      Contact Us
-                    </a>
+                    <Link to="/contact">
+                      <button className="text-inherit py-2 px-4 rounded shadow hover:shadow-inner hover:bg-gradient-to-tr from-cyan-600 to-blue-900 transition-colors duration-300">
+                        Contact Us
+                      </button>
+                    </Link>
                   </div>
                 </>
               )}
