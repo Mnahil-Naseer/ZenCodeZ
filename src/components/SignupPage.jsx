@@ -21,7 +21,12 @@ function SignupPage({ setIsLoggedIn }) {
   const handleSignup = (e) => {
     e.preventDefault();
     if (formData.password === formData.confirmPassword) {
-      // Handle signup logic here (e.g., send data to the server)
+      // Save user data to local storage
+      localStorage.setItem('user', JSON.stringify({
+        username: formData.username,
+        email: formData.email,
+        password: formData.password
+      }));
       setIsLoggedIn(true);
       navigate('/'); // Redirect to main page
     } else {

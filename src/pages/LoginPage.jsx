@@ -18,8 +18,14 @@ function LoginPage({ setIsLoggedIn }) {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    setIsLoggedIn(true);
-    navigate('/'); // Redirect to main page
+    const user = JSON.parse(localStorage.getItem('user'));
+    
+    if (user && user.username === formData.username && user.password === formData.password) {
+      setIsLoggedIn(true);
+      navigate('/'); // Redirect to main page
+    } else {
+      alert('Invalid username or password');
+    }
   };
 
   return (
@@ -66,7 +72,7 @@ function LoginPage({ setIsLoggedIn }) {
           </button>
         </form>
         <div className="text-center mt-6">
-          <p className="text-gray-700">Not registered yet? <a href="#" className="text-blue-600 hover:underline">Create new Account</a></p>
+          <p className="text-gray-700">Not registered yet? <a href="/signup" className="text-blue-600 hover:underline">Create new Account</a></p>
         </div>
       </div>
     </div>

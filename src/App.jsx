@@ -9,6 +9,7 @@ import ServiceDetailPage from './pages/ServiceDetailPage';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ProfilePage from './pages/ProfilePage';
+import SignupPage from './components/SignupPage';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -25,6 +26,7 @@ function App() {
         <Route path="/services" element={<ServiceDetailPage />} />
         <Route path="/hiring" element={<HiringPage />} />
         <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/signup" element={<SignupPage setIsLoggedIn={setIsLoggedIn} />} />
       </Routes>
       <Footer />
     </Router>
