@@ -149,7 +149,7 @@ function ServicesDetails() {
 
   useEffect(() => {
     if (location.hash) {
-      const serviceId = location.hash.substring(1); // Remove the '#' from the hash
+      const serviceId = location.hash.substring(1); 
       const serviceIndex = services.findIndex(service => service.id === serviceId);
 
       if (serviceIndex !== -1) {

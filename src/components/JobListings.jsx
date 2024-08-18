@@ -1,30 +1,30 @@
 import React, { useState } from 'react';
-import jobImage from '../img/services.jpg'; // Replace with the correct path to your image
-import companyCultureImage from '../img/culture.jpg'; // Replace with the correct path to your image
+import jobImage from '../img/services.jpg'; 
+import companyCultureImage from '../img/culture.jpg'; 
 
 function JobListings() {
-  const [selectedJob, setSelectedJob] = useState(null); // State to manage selected job
+  const [selectedJob, setSelectedJob] = useState(null); 
 
   const jobListings = [
     {
       title: "Software Engineer",
       description: "Join our dynamic team to develop and maintain cutting-edge web applications, ensuring high performance and scalability.",
-      applicationLink: "/apply/software-engineer", // Replace with actual form page route
+      applicationLink: "/apply/software-engineer", 
     },
     {
       title: "Product Designer",
       description: "Create intuitive and engaging user interfaces while enhancing user experiences across our product suite.",
-      applicationLink: "/apply/product-designer", // Replace with actual form page route
+      applicationLink: "/apply/product-designer", 
     },
     {
       title: "DevOps Engineer",
       description: "Automate and streamline operations and processes, while ensuring the availability and security of our infrastructure.",
-      applicationLink: "/apply/devops-engineer", // Replace with actual form page route
+      applicationLink: "/apply/devops-engineer", 
     },
     {
       title: "Data Scientist",
       description: "Analyze complex datasets to uncover trends and insights that drive strategic business decisions.",
-      applicationLink: "/apply/data-scientist", // Replace with actual form page route
+      applicationLink: "/apply/data-scientist", 
     },
   ];
 
@@ -49,7 +49,7 @@ function JobListings() {
 
   const handleSubmit = () => {
     alert('Your application has been submitted successfully!');
-    handleCloseForm(); // Optionally close the form after submission
+    handleCloseForm(); 
   };
 
   return (
@@ -132,7 +132,6 @@ function JobListings() {
 function MainBanner() {
   return (
     <div className="flex flex-col md:flex-row items-center justify-between z-50 p-2 md:p-16 bg-gradient-to-tr from-cyan-900 via-cyan-600 to-blue-900 text-white animate-fadein">
-      {/* Left Section */}
       <div className="md:w-1/2 animate-slideinLeft">
         <h2 className="text-4xl md:text-5xl font-bold mb-6">
           Shape the Future of Technology, Wherever You Are
@@ -144,8 +143,6 @@ function MainBanner() {
           Explore Jobs
         </a>
       </div>
-      
-      {/* Right Section - Image */}
       <div className="mt-8 md:mt-0 md:w-1/2 flex justify-center animate-slideinRight">
         <img src={jobImage} alt="Job Opportunities" className="w-full h-auto object-cover rounded-lg shadow-lg"/>
       </div>

@@ -9,8 +9,8 @@ function ProfilePage({ isLoggedIn, setIsLoggedIn }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    setIsLoggedIn(false); // Update the isLoggedIn state to false
-    navigate('/login'); // Navigate to the login page
+    setIsLoggedIn(false); 
+    navigate('/login'); 
   };
 
   return (

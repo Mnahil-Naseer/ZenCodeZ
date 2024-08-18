@@ -22,7 +22,7 @@ function LoginPage({ setIsLoggedIn }) {
 
     if (user && user.username === formData.username && user.password === formData.password) {
       setIsLoggedIn(true);
-      navigate('/'); // Redirect to main page
+      navigate('/'); 
     } else {
       alert('Invalid username or password');
     }

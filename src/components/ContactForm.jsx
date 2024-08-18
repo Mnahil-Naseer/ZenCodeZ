@@ -29,7 +29,6 @@ function ContactForm() {
     alert('Thank you for reaching out! We have received your message and will get back to you shortly.');
     console.log('Form data submitted:', formData);
 
-    // Clear the form after submission
     setFormData({
       name: '',
       email: '',

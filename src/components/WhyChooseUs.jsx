@@ -115,7 +115,7 @@ function WhyChooseUs() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentPage((prevPage) => (prevPage + 1) % totalPages);
-    }, 9000); // Change slide every 5 seconds
+    }, 9000); 
     return () => clearInterval(interval);
   }, [totalPages]);
 
@@ -231,11 +231,6 @@ function WhyChooseUs() {
             ))}
           </div>
         </div>
-
-
-
-
-
       </div>
     </section>
   );

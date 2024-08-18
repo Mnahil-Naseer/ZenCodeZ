@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaEdit, FaTrash, FaMapMarkerAlt, FaEnvelope, FaPhone, FaUser, FaSignOutAlt } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom'; // Import useHistory for navigation
+import { useNavigate } from 'react-router-dom'; 
 import profile from '../img/icons8-male-user-50.png';
 
 const initialUserActivity = [
@@ -20,8 +20,7 @@ const ProfileDashboard = () => {
     profilePicture: profile
   });
   const [newProject, setNewProject] = useState({ title: "", description: "", date: "" });
-  const [isEditingProfile, setIsEditingProfile] = useState(false); // State to toggle edit mode
-  const navigate = useNavigate(); // Initialize useHistory for navigation
+  const [isEditingProfile, setIsEditingProfile] = useState(false); 
 
   useEffect(() => {
     const savedUserInfo = JSON.parse(localStorage.getItem('userInfo'));
@@ -69,11 +68,11 @@ const ProfileDashboard = () => {
   const handleUpdateProfile = (updatedInfo) => {
     setUserInfo(updatedInfo);
     localStorage.setItem('userInfo', JSON.stringify(updatedInfo));
-    setIsEditingProfile(false); // Exit edit mode after saving
+    setIsEditingProfile(false); 
   };
 
   const handleEditProfileClick = () => {
-    setIsEditingProfile(true); // Enter edit mode
+    setIsEditingProfile(true); 
   };
 
   const handleProfileChange = (e) => {
@@ -83,7 +82,7 @@ const ProfileDashboard = () => {
 
   const handleProfileSubmit = (e) => {
     e.preventDefault();
-    handleUpdateProfile(userInfo); // Save the updated profile data
+    handleUpdateProfile(userInfo); 
   };
 
   return (

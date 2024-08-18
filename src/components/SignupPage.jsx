@@ -21,14 +21,13 @@ function SignupPage({ setIsLoggedIn }) {
   const handleSignup = (e) => {
     e.preventDefault();
     if (formData.password === formData.confirmPassword) {
-      // Save user data to local storage
       localStorage.setItem('user', JSON.stringify({
         username: formData.username,
         email: formData.email,
         password: formData.password
       }));
       setIsLoggedIn(true);
-      navigate('/'); // Redirect to main page
+      navigate('/'); 
     } else {
       alert('Passwords do not match');
     }
