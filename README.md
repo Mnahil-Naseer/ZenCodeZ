@@ -13,8 +13,8 @@ ZenCodeZ is a cutting-edge IT company website built with React.js and Tailwind C
   Includes smooth hover effects, slide-ins, and other animations to enhance user engagement.
 - Service Showcases:
   Detailed presentation of the services offered by ZenCodeZ, including descriptions and related projects.
-- Project Portfolio:  
-  Highlights key projects with interactive slides and in-depth details.
+- Project Portfolio:
+   Highlights key projects with interactive slides and in-depth details.
 - Client Testimonials:
   Features feedback from clients in a visually appealing slideshow format.
 - Contact Form:
