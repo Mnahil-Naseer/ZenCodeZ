@@ -3,6 +3,8 @@
 
 ZenCodeZ is a cutting-edge IT company website built with React.js and Tailwind CSS. The platform showcases our services, projects, and company culture with a modern, responsive design and engaging user interactions.
 
+<img width="947" alt="image" src="https://github.com/user-attachments/assets/cbb17ac2-e922-42bf-a72e-50f975b7063a">
+
 ## Features
 
 - Responsive Design:
