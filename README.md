@@ -7,9 +7,9 @@ ZenCodeZ is a cutting-edge IT company website built with React.js and Tailwind C
 
 - Responsive Design:
   Optimized for all screen sizes, ensuring a seamless experience on any device.
--Dynamic Animations:
+- Dynamic Animations:
   Includes smooth hover effects, slide-ins, and other animations to enhance user engagement.
--Service Showcases:
+- Service Showcases:
   Detailed presentation of the services offered by ZenCodeZ, including descriptions and related projects.
 - Project Portfolio:  
   Highlights key projects with interactive slides and in-depth details.
