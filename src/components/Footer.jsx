@@ -1,6 +1,15 @@
 import React from 'react';
 
 function Footer() {
+  const [email, setEmail] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Prevent the default form submission
+    setEmail(""); // Clear the input field
+    setShowPopup(true); // Show the popup
+    setTimeout(() => setShowPopup(false), 3000); // Hide popup after 3 seconds
+  };
   return (
     <footer className="bg-gradient-to-tr from-cyan-900 via-cyan-800  to-blue-950 text-white py-5 px-4">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -38,22 +47,30 @@ function Footer() {
 
         {/* Newsletter Signup Form */}
         <div>
-          <h3 className="text-xl font-bold mb-4">Newsletter Signup</h3>
-          <form>
-            <input
-              type="email"
-              className="w-full p-2 mb-4 text-gray-800"
-              placeholder="Enter your email"
-              required
-            />
-            <button
-              type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Subscribe
-            </button>
-          </form>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          className="w-full p-2 mb-4 text-gray-800"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <button
+          type="submit"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Subscribe
+        </button>
+      </form>
+
+      {/* Popup Message */}
+      {showPopup && (
+        <div className="mt-4 p-2 bg-green-500 text-white rounded">
+          Thanks for subscribing!
         </div>
+      )}
+    </div>
         
       </div>
       <div className="mt-8  text-center">
